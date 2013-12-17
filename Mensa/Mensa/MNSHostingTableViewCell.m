@@ -69,7 +69,9 @@
 {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
 		Class class = self.hostedViewControllerClass;
-		_hostedViewController = [[class alloc] initWithNibName:NSStringFromClass(class) bundle:nil];
+        NSString *className = NSStringFromClass(class);
+        NSString *nibName = [[NSBundle mainBundle] pathForResource:className ofType:@"nib"] ? className: nil;
+        _hostedViewController = [[class alloc] initWithNibName:nibName bundle:nil];
     }
     return self;
 }
